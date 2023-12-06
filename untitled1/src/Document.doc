@@ -1,0 +1,101 @@
+/**
+ * The Student class represents a student entity with attributes such as student ID, full name, and marks.
+ */
+public class Student {
+    private int studentId;
+    private String fullName;
+    private double marks;
+
+    // Constructors, getters, and setters are implemented for data encapsulation.
+}
+
+/**
+ * The StudentManagementSystem class serves as a management system for handling student-related operations
+ * such as adding, displaying, and sorting students based on different criteria.
+ */
+public class StudentManagementSystem {
+    private List<Student> studentList;
+
+    /**
+     * Constructs a new StudentManagementSystem with an empty list of students.
+     */
+    public StudentManagementSystem() {
+        this.studentList = new ArrayList<>();
+    }
+
+    /**
+     * Adds a student to the system.
+     *
+     * @param student The student to be added.
+     */
+    public void addStudent(Student student) {
+        studentList.add(student);
+    }
+
+    /**
+     * Displays information for all students in the system.
+     */
+    public void displayStudents() {
+        for (Student student : studentList) {
+            System.out.println(student);
+            System.out.println("-------------");
+        }
+    }
+
+    /**
+     * Sorts students based on a specified criteria.
+     *
+     * @param sortBy The criteria for sorting (e.g., "studentId", "fullName", or "marks").
+     */
+    public void sortStudents(String sortBy) {
+        switch (sortBy) {
+            case "studentId":
+                SortingAlgorithm.sortByStudentId(studentList);
+                break;
+            case "fullName":
+                SortingAlgorithm.sortByFullName(studentList);
+                break;
+            default:
+                SortingAlgorithm.sortByMarks(studentList); // Default: sort by marks
+                break;
+        }
+    }
+
+    // Additional methods for editing, deleting, searching, etc.
+}
+
+/**
+ * The SortingAlgorithm class provides methods for sorting a list of Student objects
+ * based on different criteria such as marks, student ID, and full name.
+ */
+public class SortingAlgorithm {
+
+    /**
+     * Sorts a list of Student objects based on their marks in ascending order.
+     *
+     * @param studentList The list of students to be sorted.
+     */
+    public static void sortByMarks(List<Student> studentList) {
+        Collections.sort(studentList, Comparator.comparingDouble(Student::getMarks));
+    }
+
+    /**
+     * Sorts a list of Student objects based on their student ID in ascending order.
+     *
+     * @param studentList The list of students to be sorted.
+     */
+    public static void sortByStudentId(List<Student> studentList) {
+        Collections.sort(studentList, Comparator.comparingInt(Student::getStudentId));
+    }
+
+    /**
+     * Sorts a list of Student objects based on their full name in lexicographical order.
+     *
+     * @param studentList The list of students to be sorted.
+     */
+    public static void sortByFullName(List<Student> studentList) {
+        Collections.sort(studentList, Comparator.comparing(Student::getFullName));
+    }
+
+    // Generic merge sort method and generic merge method are implemented for modularity.
+}
